@@ -1,0 +1,22 @@
+{
+    "name": "fraym/composer-installers",
+    "type": "composer-plugin",
+    "license": "GPL-2.0+",
+    "description": "Fraym CMS Installers",
+    "keywords": [
+        "installer", "fraym", "cms", "core", "extension"
+    ],
+    "autoload": {
+        "psr-0": { "": "Registry/"}
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "composer-plugin-api": "^1.0.0"
+    },
+    "require-dev": {
+        "composer/composer": "1.*"
+    },
+    "extra": {
+        "class": "Fraym\\Registry\\ExtensionInstallerPlugin"
+    }
+}
