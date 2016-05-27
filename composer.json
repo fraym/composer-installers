@@ -8,7 +8,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Fraym\\Registry\\": "Registry/",
+            "Fraym\\Registry\\": "Registry/"
         },
     },
     "minimum-stability": "dev",
