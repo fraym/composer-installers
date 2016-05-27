@@ -18,9 +18,6 @@
     "require-dev": {
         "composer/composer": "1.*"
     },
-    "config": {
-        "vendor-dir": "Fraym"
-    },
     "extra": {
         "class": "Fraym\\Registry\\ExtensionInstallerPlugin"
     }
