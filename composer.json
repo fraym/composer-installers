@@ -7,7 +7,9 @@
         "installer", "fraym", "cms", "core", "extension"
     ],
     "autoload": {
-        "psr-0": { "": "Registry/"}
+        "psr-4": {
+            "Fraym\\Registry\\": "Registry/",
+        },
     },
     "minimum-stability": "dev",
     "require": {
