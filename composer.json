@@ -3,6 +3,7 @@
     "type": "composer-plugin",
     "license": "GPL-2.0+",
     "description": "Fraym CMS Installers",
+    "homepage": "http://fraym.org",
     "keywords": [
         "installer", "fraym", "cms", "core", "extension"
     ],

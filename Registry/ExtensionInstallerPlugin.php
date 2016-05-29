@@ -7,6 +7,10 @@ use Composer\Plugin\PluginInterface;
 
 class ExtensionInstallerPlugin implements PluginInterface
 {
+    /**
+     * @param Composer $composer
+     * @param IOInterface $io
+     */
     public function activate(Composer $composer, IOInterface $io)
     {
         $installer = new \Fraym\Registry\ExtensionInstaller($io, $composer);
