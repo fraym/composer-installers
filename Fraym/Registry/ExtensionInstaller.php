@@ -44,6 +44,7 @@ class ExtensionInstaller extends LibraryInstaller
     public function addExtension($path, PackageInterface $package) {
         if($package->getType() === 'fraym-core') {
             $this->createSymlinks($path . DIRECTORY_SEPARATOR . 'Fraym', 'Fraym');
+            $this->createSymlinks($path, '', DIRECTORY_SEPARATOR . 'Bootstrap.php');
         }
         $this->createSymlinks($path . DIRECTORY_SEPARATOR . 'Extension', 'Extension');
         $this->createSymlinks($path . DIRECTORY_SEPARATOR . 'Public', 'Public');
@@ -59,6 +60,7 @@ class ExtensionInstaller extends LibraryInstaller
     public function removeExtension($path, PackageInterface $package) {
         if($package->getType() === 'fraym-core') {
             $this->removeSymlinks($path . DIRECTORY_SEPARATOR . 'Fraym', 'Fraym');
+            $this->removeSymlinks($path, '', DIRECTORY_SEPARATOR . 'Bootstrap.php');
         }
         $this->removeSymlinks($path . DIRECTORY_SEPARATOR . 'Extension', 'Extension');
         $this->removeSymlinks($path . DIRECTORY_SEPARATOR . 'Public', 'Public');
@@ -85,9 +87,11 @@ class ExtensionInstaller extends LibraryInstaller
     /**
      * @param $path
      * @param $to
+     * @param $pattern
+     * @return array
      */
-    public function createSymlinks($path, $to) {
-        foreach($this->getSymlinks($path, $to) as $target => $symlink){
+    public function createSymlinks($path, $to, $pattern = '/*') {
+        foreach($this->getSymlinks($path, $to, $pattern) as $target => $symlink){
             $this->filesystem->relativeSymlink($target, $symlink);
         }
     }
@@ -95,9 +99,11 @@ class ExtensionInstaller extends LibraryInstaller
     /**
      * @param $path
      * @param $to
+     * @param $pattern
+     * @return array
      */
-    public function removeSymlinks($path, $to) {
-        foreach($this->getSymlinks($path, $to) as $target => $symlink){
+    public function removeSymlinks($path, $to, $pattern = '/*') {
+        foreach($this->getSymlinks($path, $to, $pattern) as $target => $symlink){
             if(is_link($symlink)) {
                 unlink($symlink);
             }
@@ -107,13 +113,14 @@ class ExtensionInstaller extends LibraryInstaller
     /**
      * @param $path
      * @param $to
+     * @param $pattern
      * @return array
      */
-    public function getSymlinks($path, $to) {
-        foreach(glob($path . '/*') as $filePath) {
+    public function getSymlinks($path, $to, $pattern) {
+        foreach(glob($path . $pattern) as $filePath) {
             $symlink = realpath($to).DIRECTORY_SEPARATOR.basename($filePath);
             if(is_dir($symlink) && !is_link($symlink)) {
-                $this->getSymlinks($filePath, $symlink);
+                $this->getSymlinks($filePath, $symlink, $pattern);
             } else {
                 $this->symlinks[$filePath] = $symlink;
             }
