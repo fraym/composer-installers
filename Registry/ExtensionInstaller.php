@@ -118,6 +118,6 @@ class ExtensionInstaller extends LibraryInstaller
      */
     public function supports($packageType)
     {
-        return 'fraym-extension' === $packageType;
+        return 'fraym-extension' === $packageType || 'fraym-core' === $packageType;
     }
 }
